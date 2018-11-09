@@ -3,19 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package compressor;
+package LZ77;
 
 /**
  *
  * @author rokka
  */
-public class Compressor {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+public class Tuple {
+    public int value1;
+    public int value2;
+    public Tuple(int value1, int value2){
+        this.value1=value1;
+        this.value2=value2;
     }
-    
 }

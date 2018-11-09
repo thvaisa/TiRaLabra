@@ -1,0 +1,61 @@
+%% LyX 2.1.4 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=3cm,bmargin=2cm,lmargin=1.5cm,rmargin=1.5cm}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{algorithm,algpseudocode}
+
+\makeatother
+
+\usepackage{babel}
+\begin{document}
+
+\subsection*{M‰‰rittelydokumentti}
+
+Pahoittelen, en kerke‰ tekem‰‰n kunnollista palautusta viikolle 2,
+koska aloitin koko kurssin vasta periaatteessa t‰n‰‰n. Yrit‰n juosta
+kiinni mahdollisimman nopeasti. Koodia on turha yritt‰‰ k‰‰nt‰‰. Vasta
+hahmottelen algoritmia.
+
+
+\subsubsection*{Mit‰ ongelmaa ratkaiset ja miksi valitsit kyseiset algoritmit/tietorakenteet }
+
+Toteutan Lempel-Ziv \cite{Ziv1977} algoritmin, jota k‰ytet‰‰n tiedostojen
+tiivistykseen. Valitsin algoritmin, koska se on selke‰ ja toimii pohjana
+monelle muulle edistyneemm‰lle tiedonpakkausalgoritmille \cite{Salomon2006}.
+Projektiani varten teen pakkaus- ja purkutyˆkalun. Tarkoituksena olisi
+saada aikaan bufferi, johon tiedostoja luetaan v‰hitellen, josta dataa
+voidaan hankkia ikkunaan, eik‰ koko tiedostoa lueta muistiin. Toinen
+juttu on, ett‰ haluan pysty‰ m‰‰rittelem‰‰n bittien lukum‰‰r‰n ``merkiss‰'',
+joten en k‰yt‰ tavua pienempin‰ yksikkˆn‰. 
+
+
+\subsubsection*{Mit‰ syˆtteit‰ ohjelma saa ja miten n‰it‰ k‰ytet‰‰n }
+
+Tiedosto
+
+
+\subsubsection*{Mit‰ algoritmeja ja tietorakenteita toteutat tyˆss‰si }
+
+Toteutan dynaamisen listan ja ehk‰ jonkinlainen iteraattori sille
+helpottaisi asiaa.
+
+
+\subsubsection*{Tavoitteena olevat aika- ja tilavaativuudet (m.m. O-analyysit) }
+
+Aika vaativuus on kai parhaimmillaan O(n{*}log(n)): k‰yd‰‰n kaikki
+tiedoston bitit l‰pi sen j‰lkeen k‰yd‰‰n ``ikkunan'' kokoinen alue
+l‰pi kursorin ymp‰rilt‰. Tilavaativuus on bufferin koko.
+
+
+\subsubsection*{L‰hteet }
+
+\bibliographystyle{plain}
+\bibliography{citations}
+
+\end{document}

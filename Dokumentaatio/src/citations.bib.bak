@@ -1,0 +1,16 @@
+% This file was created with JabRef 2.10.
+% Encoding: UTF-8
+
+
+@Article{Ziv1977AUA,
+  Title                    = {A universal algorithm for sequential data compression},
+  Author                   = {Jacob Ziv and Abraham Lempel},
+  Journal                  = {IEEE Trans. Information Theory},
+  Year                     = {1977},
+  Pages                    = {337-343},
+  Volume                   = {23},
+
+  Owner                    = {rokka},
+  Timestamp                = {2018.11.07}
+}
+
