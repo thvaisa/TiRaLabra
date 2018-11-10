@@ -14,12 +14,15 @@ import java.util.BitSet;
 public class ValueStore {
     public int position;
     public int length;
-    public BitSet bits;
+    public BitChunk bits;
     
-    public ValueStore(int position, int length, BitSet bits){
+    public ValueStore(int position, int length, BitChunk bits){
         this.position = position;
         this.length = length;
         this.bits = bits;
     }
-    
+   
+        
+        
+        
 }

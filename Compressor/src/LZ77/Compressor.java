@@ -24,36 +24,28 @@ public class Compressor {
      * @param args the command line arguments
      */
    
-    public boolean compress(DataReader reader, DataWriter writer){
+    public boolean compress(CustomBitsArray data){
         list = new ArrayList<>();
-        
         
         int cursor = 0;
         int lookAheadBufferSize = 5;
         int windowSize = 10;
-        int width = 2;
-        BitSet data = reader.getBitSet();
-        int N = data.size();      
+        int width = data.GetChunkSize();
+        int N = data.GetSize(); 
+
 
         while(cursor<N){
             Tuple match = findMatch(data,cursor,lookAheadBufferSize,
                                                 windowSize, width);
-            int jump = match.value2*width;
-            if(cursor+jump+width>=N){
-                jump=N-cursor;
+            
+            System.out.println("Dictionary: "+match.value1);
+            System.out.println("LookAhead: "+match.value2);
+            cursor = cursor+match.value2+1;
+            if(cursor<N){
+                System.out.println("Match: "+Long.toBinaryString(data.getBitChunk(cursor).data()));
+            }else{
+                System.out.println("Match: "+Long.toBinaryString(data.getBitChunk(0).data()));
             }
-            
-            BitSet nextBits = data.get(cursor+jump+width,cursor+jump+width*2);
-            list.add(new ValueStore(match.value1,jump,nextBits));
-            
-            int maxIndx = min(cursor+lookAheadBufferSize,data.size());
-            int dictMaxIndx = max(0,cursor-windowSize);
-            
-            System.out.println("Dictionary: "+data.get(dictMaxIndx,cursor).toString());
-            System.out.println("LookAhead: "+data.get(cursor,maxIndx).toString());
-            System.out.println("Match: "+Integer.toString(match.value1)+","+Integer.toString(match.value2)+","+match.)
-            
-            cursor = cursor+jump+width;
         }
         return true;
     }
@@ -61,42 +53,25 @@ public class Compressor {
     
     
     
-    public boolean decompress(DataReader reader, DataWriter writer){
-        
-        
-        
-        
-        return true;
-    }
-    
-    
-    
-    //REPLACE with better algorithm
-    private boolean equal(BitSet data,int indx1,int indx2, int width){
-        for(int i=0;i<width;++i){
-            if(data.get(indx1+i)!=data.get(indx2+i)) return false;
-        }
-        return true;
-    }
-    
-    
-    
+
     
     
     private Tuple findMatch(
-                                        BitSet data, int cursor, 
-                                        int lookAheadSize, int windowSize,
-                                        int width)
+                            CustomBitsArray data, int cursor, 
+                            int lookAheadSize, int windowSize,
+                            int width)
     {
         
+        int mSize = data.GetSize();
         
-        int maxIndx = min(cursor+lookAheadSize,data.size());
+        int maxIndx = min(cursor+lookAheadSize,mSize);
         int dictMaxIndx = max(0,cursor-windowSize);
         
         int startIndx = -1; 
         
-        for(int j=dictMaxIndx; j<cursor; j=j+width){
-            if(equal(data,cursor,j,width)){
+        //Find the first occurrence
+        for(int j=dictMaxIndx; j<cursor; ++j){
+            if(data.equalData(j,cursor)){
                 startIndx=j;
                 break;
             }
@@ -105,14 +80,14 @@ public class Compressor {
         if(startIndx==-1) return new Tuple(0,0);
         
         int cnt=1;
-        while(cursor+cnt*width<maxIndx){
-            if(!equal(data,cursor+cnt*width,startIndx+cnt*width,width)){
+        while(cursor+cnt<maxIndx){
+            if(!data.equalData(cursor+cnt,startIndx+cnt)){
                 break;
             }
             ++cnt;
         }
  
-        return new Tuple((cursor-startIndx)/width,cnt);
+        return new Tuple((cursor-startIndx),cnt);
     }
     
 }
